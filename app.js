@@ -4,10 +4,6 @@
 const express = require("express");
 const body_parser = require("body-parser");
 const axios = require("axios").default;
-const https = require('https');
-const path =  require('path');
-const fs  = require('fs');
-
 const dotenv = require('dotenv');
 const app = express().use(body_parser.json()); // creates express http server
 
@@ -94,12 +90,7 @@ app.get('/', (req, res) => {
 app.get('/favicon.ico', (req, res) => {
     console.log('check here')
     res.send();
-});
-
-const sslServer = https.createServer({
-    key: fs.readFileSync(path.join(__dirname, 'cert', 'key.pem')),
-    cert: fs.readFileSync(path.join(__dirname, 'cert', 'cert.pem'))
-}, app);
+})
 
 // Sets server port and logs message on success
-sslServer.listen(PORT, () => console.log("webhook is listening on port: ", process.env.VERIFY_TOKEN, PORT));
+app.listen(PORT, () => console.log("webhook is listening on port: ", process.env.VERIFY_TOKEN, PORT));
