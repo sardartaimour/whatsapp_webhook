@@ -63,6 +63,7 @@ app.get("/webhook", (req, res) => {
    *This will be the Verify Token value when you set up webhook
    **/
   const verify_token = process.env.VERIFY_TOKEN;
+  console.log(JSON.stringify(req.query, null, 2));
 
   // Parse params from the webhook verification request
   let mode = req.query["hub.mode"];
@@ -84,7 +85,8 @@ app.get("/webhook", (req, res) => {
 });
 
 app.get('/', (req, res) => {
-    res.send('server is listening')
+  console.log('req => ', req.query)
+    res.send(req.query['hub.challenge']);
 });
 
 app.get('/favicon.ico', (req, res) => {
